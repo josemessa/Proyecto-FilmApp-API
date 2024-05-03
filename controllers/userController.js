@@ -1,7 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const tokenGenerator = require("../utils/utils");
-
+const Movie = require("../models/movieModel");
 
 const userLogin = async (req, res) => {
   try {
@@ -20,15 +20,15 @@ const userLogin = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
-      }
-      const token= tokenGenerator(payload,false)
-      const token_refresh=tokenGenerator(payload,true);
-      
+      };
+      const token = tokenGenerator(payload, false);
+      const token_refresh = tokenGenerator(payload, true);
+
       return res.status(200).json({
         status: "login succesfully",
         data: user,
         token: token,
-        token_refresh: token_refresh
+        token_refresh: token_refresh,
       });
     } else {
       return res.status(200).json({
@@ -69,7 +69,158 @@ const addUser = async (req, res) => {
   }
 };
 
+const addToFavourites = async (req, res) => {
+  try {
+    const userId = req.payload.userId;
+    if (!userId) {
+      return res.status(204).json({
+        status: "success",
+        message: "user ID not found",
+      });
+    }
+    const movieToAdd = req.params.id;
+
+    if (!movieToAdd) {
+      return res.status(204).json({
+        status: "success",
+        message: "movie ID not found",
+      });
+    }
+    const user = await User.findById(userId);
+    console.log(user);
+    const isIncluded = user.favourites.includes(movieToAdd);
+    console.log(isIncluded);
+    if (!isIncluded) {
+      user.favourites.push(movieToAdd);
+      await user.save();
+
+      return res.status(200).json({
+        status: "success",
+        data: user,
+      });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "movie already exist in user favourite",
+      data: user,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: "favourite not added",
+      error: error.message,
+    });
+  }
+};
+const deleteFavourite = async (req, res) => {
+  try {
+    const userId = req.payload.userId;
+    const movieToDelete = req.params.id;
+    const userResult = await User.findByIdAndUpdate(
+      userId,
+      {
+        $pull: { favourites: movieToDelete },
+      },
+      { new: true }
+    );
+
+    if (!userId) {
+      return res.status(204).json({
+        status: "success",
+        message: "user ID not found",
+        error: error.message,
+      });
+    }
+    if (!movieToDelete) {
+      return res.status(204).json({
+        status: "success",
+        message: "movie ID not found",
+        error: error.message,
+      });
+    }
+    console.log(userResult);
+    return res.status(200).json({
+      status: "success",
+      data: userResult,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: "favourite not deleted",
+      error: error.message,
+    });
+  }
+};
+
+const getFavouriteFromUser = async (req, res) => {
+  try {
+    const userId = req.payload.userId;
+
+    if (!userId) {
+      return res.status(204).json({
+        status: "success",
+        message: "user ID not found",
+        error: error.message,
+      });
+    }
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(204).json({
+        status: "success",
+        message: "user ID not found",
+        error: error.message,
+      });
+    }
+    const favourites = user.favourites;
+    if (favourites.lenght === 0) {
+      return res.status(204).json({
+        status: "success",
+        message: "favourites not found in user",
+        error: error.message,
+      });
+    }
+    return res.status(200).json({
+      status: "success",
+      data: favourites,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: "favourites not matched",
+      error: error.message,
+    });
+  }
+};
+
+const generateRefresh = async (req, res) => {
+  try {
+    const user = req.payload;
+    const payload = {
+      userId: user.userId,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    };
+    const newToken = tokenGenerator(payload, false);
+    const newTokenRefresh = tokenGenerator(payload, true);
+    return res.status(200).json({
+      status: "success",
+      token: newToken,
+      token_refresh: newTokenRefresh
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: "refresh not success",
+      error: error.message,
+    });
+  }
+};
 module.exports = {
   addUser,
   userLogin,
+  addToFavourites,
+  deleteFavourite,
+  getFavouriteFromUser,
+  generateRefresh,
 };

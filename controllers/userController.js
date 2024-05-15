@@ -4,27 +4,6 @@ const tokenGenerator = require("../utils/utils");
 const Movie = require("../models/movieModel");
 const sendEmail = require("../services/emailSignup");
 
-/**
- * @swagger
- * /users/login:
- *   POST:
- *     summary: login de usuario
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             properties:
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       200:
- *         description: Usuario logueado
- *       400:
- *         description: pasworrd o email incorrectos
- */
 const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;

@@ -11,6 +11,28 @@ const {
 const { verifyToken } = require("../middlewares/auth");
 
 router.post("/signup", addUser);
+
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: login de usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Usuario logueado
+ *       400:
+ *         description: pasworrd o email incorrectos
+ */
 router.post("/login", userLogin);
 router.patch("/:id/favorite", verifyToken, editUser);
 router.patch("/:id/favorite", verifyToken, addToFavourites);

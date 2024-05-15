@@ -3,13 +3,11 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const PORT = 1000;
 
-
-
 const app = express();
 app.use(express.json());
 
 const userRouter = require("./routers/userRouter");
-const moviesRouter=require("./routers/movieRouter");
+const moviesRouter = require("./routers/movieRouter");
 const { todo } = require("node:test");
 
 const urlMongo = process.env.DATABASE;
@@ -29,12 +27,11 @@ db.on("disconnected", () => {
 });
 
 app.use("/users", userRouter);
-app.use("/movies",moviesRouter)
+app.use("/movies", moviesRouter);
 
 app.listen(PORT, () => {
   console.log(`server running in http://localhost:${PORT}`);
 });
-
 
 // Sin autenticación:
 // GET /movies (Para obtener todas las películas)
@@ -43,7 +40,7 @@ app.listen(PORT, () => {
 // insertadas recientemente)
 //TODO: GET /most_popular (Para obtener las películas mejor valoradas, obtener las 10
 // películas mejora valoradas)
-// POST /login (EndPoint para loguearse en la app) 
+// POST /login (EndPoint para loguearse en la app)
 // POST /signup (EndPoint para registrase en la app)
 // GET /average la media de la puntuacion
 
@@ -53,8 +50,5 @@ app.listen(PORT, () => {
 // patch/user/:idMovie/favorite , para añadir películas a favoritos
 // DELETE /user/:idMovie/favorite , para borrar películas de favoritos
 // POST /movies , para añadir películas solo los administradores
-// PATCH /movies/:id , para actualizar películas solo los administradores 
+// PATCH /movies/:id , para actualizar películas solo los administradores
 // DELETE /movies/:id , para borrar películas solo los administradores
-// TODO:GET /genereToken Para recuperar el token normal y token de refresco y es el
-// único donde utilizamos el REFRESH_TOKEN
-// Obtener la 

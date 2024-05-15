@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const tokenGenerator = require("../utils/utils");
 const Movie = require("../models/movieModel");
+const sendEmail = require("../services/emailsignup");
 
 const userLogin = async (req, res) => {
   try {
@@ -55,7 +56,13 @@ const addUser = async (req, res) => {
       role: role,
       favourites: favourites,
     });
+
     await user.save();
+    sendEmail(
+      user.email,
+      "Gracias por registrarte en FilmAPP",
+      "Por el momento esto es un proyecto de backend de un alumno de codespace pero quien sabe.... quizas algun dia se convierta en una aplicacion real. Saludos"
+    );
     res.status(200).json({
       status: "user created succesfully",
       data: user,
@@ -112,6 +119,46 @@ const addToFavourites = async (req, res) => {
     });
   }
 };
+const editUser = async (req, res) => {
+  try {
+    const userId = req.payload.userId;
+    const { name, email, password, role } = req.body;
+    const hashedPassword = bcrypt(password, 10);
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { name, email, hashedPassword, role },
+      { new: true }
+    );
+
+    await user.save();
+    if (!userId) {
+      return res.status(204).json({
+        status: "success",
+        message: "user ID not found",
+        error: error.message,
+      });
+    }
+    if (!movieToDelete) {
+      return res.status(204).json({
+        status: "success",
+        message: "movie ID not found",
+        error: error.message,
+      });
+    }
+    console.log(userResult);
+    return res.status(200).json({
+      status: "success",
+      data: user,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: "favourite not deleted",
+      error: error.message,
+    });
+  }
+};
+
 const deleteFavourite = async (req, res) => {
   try {
     const userId = req.payload.userId;
@@ -206,7 +253,7 @@ const generateRefresh = async (req, res) => {
     return res.status(200).json({
       status: "success",
       token: newToken,
-      token_refresh: newTokenRefresh
+      token_refresh: newTokenRefresh,
     });
   } catch (error) {
     res.status(400).json({
@@ -223,4 +270,5 @@ module.exports = {
   deleteFavourite,
   getFavouriteFromUser,
   generateRefresh,
+  editUser,
 };

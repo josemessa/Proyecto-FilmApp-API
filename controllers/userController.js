@@ -1,9 +1,30 @@
 const User = require("../models/userModel");
-const bcrypt = require("bcrypt");
+bcrypt = require("bcrypt");
 const tokenGenerator = require("../utils/utils");
 const Movie = require("../models/movieModel");
-const sendEmail = require("../services/emailsignup");
+const sendEmail = require("../services/emailSignup");
 
+/**
+ * @swagger
+ * /users/login:
+ *   POST:
+ *     summary: login de usuario
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Usuario logueado
+ *       400:
+ *         description: pasworrd o email incorrectos
+ */
 const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -119,33 +140,32 @@ const addToFavourites = async (req, res) => {
     });
   }
 };
+
 const editUser = async (req, res) => {
   try {
     const userId = req.payload.userId;
     const { name, email, password, role } = req.body;
-    const hashedPassword = bcrypt(password, 10);
+
+    if (!userId) {
+      return res.status(400).json({
+        status: "error",
+        message: "User ID not provided",
+      });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await User.findByIdAndUpdate(
       userId,
-      { name, email, hashedPassword, role },
+      { name, email, password: hashedPassword, role },
       { new: true }
     );
-
-    await user.save();
-    if (!userId) {
-      return res.status(204).json({
-        status: "success",
-        message: "user ID not found",
-        error: error.message,
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found",
       });
     }
-    if (!movieToDelete) {
-      return res.status(204).json({
-        status: "success",
-        message: "movie ID not found",
-        error: error.message,
-      });
-    }
-    console.log(userResult);
+    console.log(user);
     return res.status(200).json({
       status: "success",
       data: user,
@@ -153,7 +173,7 @@ const editUser = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       status: "error",
-      message: "favourite not deleted",
+      message: "User not updated",
       error: error.message,
     });
   }

@@ -1,6 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger/swagger");
+
 const PORT = 1000;
 
 const app = express();
@@ -8,7 +11,6 @@ app.use(express.json());
 
 const userRouter = require("./routers/userRouter");
 const moviesRouter = require("./routers/movieRouter");
-const { todo } = require("node:test");
 
 const urlMongo = process.env.DATABASE;
 mongoose.connect(urlMongo);
@@ -28,6 +30,7 @@ db.on("disconnected", () => {
 
 app.use("/users", userRouter);
 app.use("/movies", moviesRouter);
+app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => {
   console.log(`server running in http://localhost:${PORT}`);

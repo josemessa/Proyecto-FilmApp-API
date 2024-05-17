@@ -1,19 +1,15 @@
 const Movie = require("../models/movieModel");
+const PDFDocument = require("pdfkit");
 
 const addMovie = async (req, res) => {
   try {
-    const {
-      title,
-      description,
-      posterUrl,
-      adult,          
-    } = req.body;
+    const { title, description, posterUrl, adult } = req.body;
     const movie = new Movie({
       title: title,
       description: description,
       posterUrl: posterUrl,
       adult: adult,
-         });
+    });
     await movie.save();
     res.status(200).json({
       status: "movie created succesfully",
@@ -61,6 +57,24 @@ const getMovieById = async (req, res) => {
         message: "no existen movie con ese ID",
       });
     }
+    const doc = new PDFDocument();
+
+    doc.fontSize(18).text("Pelicula", { align: "center" });
+    doc.moveDown();
+
+    doc.fontSize(18).text(`Titulo ${movie.title}`);
+    doc.fontSize(14).text(`Descripcion ${movie.description}`);
+    doc.fontSize(14).text(`Poster ${movie.posterUrl}`);
+    doc.fontSize(14).text(`Para adultos: ${movie.adult}`);
+    doc.fontSize(14).text(`Popularidad ${movie.popularity}`);
+    doc.fontSize(14).text(`Pelicula creada el:  ${movie.fecha_de_creacion}`);
+    doc.fontSize(14).text(`Valoracion media:  ${movie.average}`);
+    doc.moveDown();
+
+    res.setHeader("Content-Type", "application/pdf");
+    doc.pipe(res);
+    doc.end();
+
     return res.status(200).json({
       status: "sucess",
       data: movie,
@@ -126,21 +140,20 @@ const getLatestMovies = async (req, res) => {
   }
 };
 
-const deleteMovie= async (req,res)=>{
+const deleteMovie = async (req, res) => {
   try {
-    const movieToDelete=req.params.id
-    if(!movieToDelete){
+    const movieToDelete = req.params.id;
+    if (!movieToDelete) {
       return res.status(204).json({
         status: "success",
-        message: "movie not found"
+        message: "movie not found",
       });
     }
-    Movie.findByIdAndDelete(movieToDelete)
+    Movie.findByIdAndDelete(movieToDelete);
     return res.status(200).json({
-      status:"sucess",
-      message: "movie deleted succesfully"
-    })
-    
+      status: "sucess",
+      message: "movie deleted succesfully",
+    });
   } catch (error) {
     res.status(400).json({
       status: "error",
@@ -148,12 +161,12 @@ const deleteMovie= async (req,res)=>{
       error: error.message,
     });
   }
-}
+};
 module.exports = {
   addMovie,
   getAllMovies,
   getMovieById,
   updateMovie,
   getLatestMovies,
-  deleteMovie
+  deleteMovie,
 };

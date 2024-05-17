@@ -1,0 +1,205 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "FilmApp",
+    "collectionId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+    "dateExported": "2024-05-03T18:30:00.435Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "3a9390b6-4360-481a-8196-7295c8c77bca",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "create movie",
+            "url": "http://localhost:1000/movies/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-05-02T15:49:14.084Z",
+            "modified": "2024-05-03T18:03:55.643Z",
+            "headers": [
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMzYzZlYzE5MGNiNWJhNWMxNWYyZWEiLCJuYW1lIjoiSm9zZSBNYW51ZWwiLCJlbWFpbCI6Impvc2VtZXNhbWFyaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0NzU5NDI4LCJleHAiOjE3MTQ3NjEyMjh9.O1teTb1BsOckx9fHzi8_hC27cLOHmyJY72LhvaJxceE"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"The Garfield Movie\",\n  \"description\": \"El mundialmente famoso Garfield, el gato casero que odia los lunes y que adora la lasaña, está a punto de vivir una aventura ¡en el salvaje mundo exterior! Tras una inesperada reunión con su largamente perdido padre – el desaliñado gato callejero Vic – Garfield y su amigo canino Odie se ven forzados a abandonar sus perfectas y consentidas vidas al unirse a Vic en un hilarante y muy arriesgado atraco.\",\n  \"posterUrl\": \"/6QR2FOCQr41gSduN70WulRIhJb7.jpg\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a6fb4a9b-cfbd-4ff9-8784-2bbb7814ca35",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "add user",
+            "url": "http://localhost:1000/users/signup",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-05-02T16:07:19.533Z",
+            "modified": "2024-05-02T17:05:12.204Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Pablo Vincennzo\",\n  \"email\": \"pablovincennzo@gmail.com\",\n  \"password\": \"13141516\",\n  \"role\": \"user\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "3adb3be7-b320-42e6-81ef-4c935a74a81d",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "login",
+            "url": "http://localhost:1000/users/login",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-05-02T17:28:41.916Z",
+            "modified": "2024-05-02T17:43:31.582Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"josemesamarin@gmail.com\",\n  \"password\": \"1234\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "d19c6315-f881-431d-be24-7a5e78e4378a",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "get all movies",
+            "url": "http://localhost:1000/movies/",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-05-03T14:31:07.019Z",
+            "modified": "2024-05-03T14:32:54.113Z",
+            "headers": []
+        },
+        {
+            "_id": "8a27fa3b-6916-4190-8c83-767c1155989f",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "get movie by ID",
+            "url": "http://localhost:1000/movies/6633cafff8c1feba8988db5e",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2024-05-03T14:38:22.858Z",
+            "modified": "2024-05-03T14:43:01.066Z",
+            "headers": []
+        },
+        {
+            "_id": "c265157c-c9f1-4a69-b9d0-99ba8434713c",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "update movie",
+            "url": "http://localhost:1000/movies/6633cafff8c1feba8988db5e",
+            "method": "PATCH",
+            "sortNum": 80000,
+            "created": "2024-05-03T15:03:38.018Z",
+            "modified": "2024-05-03T15:05:47.407Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"Dune- Parte dos\",\n  \"description\": \"Sigue el viaje mítico de Paul Atreides mientras se une a Chani y los Fremen en una guerra de venganza contra los conspiradores que destruyeron a su familia.\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a533b426-e273-4128-a7ef-9b126cce2c6e",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "latest 10 movies",
+            "url": "http://localhost:1000/movies/latest",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-05-03T15:26:44.374Z",
+            "modified": "2024-05-03T15:27:20.160Z",
+            "headers": []
+        },
+        {
+            "_id": "100ca6a7-85a4-403a-bff0-7edaa0f8b545",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "add favourite to user Copy",
+            "url": "http://localhost:1000/users/6634fede9751ba296302158d/favorite",
+            "method": "PATCH",
+            "sortNum": 95000,
+            "created": "2024-05-03T16:58:22.290Z",
+            "modified": "2024-05-03T17:25:18.744Z",
+            "headers": [
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMzYzZlYzE5MGNiNWJhNWMxNWYyZWEiLCJuYW1lIjoiSm9zZSBNYW51ZWwiLCJlbWFpbCI6Impvc2VtZXNhbWFyaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0NzU3MTA3LCJleHAiOjE3MTQ3NTg5MDd9.hkAxjma8fVDMJGSL9g8lQuIsOB7WsgWWUADJy_JyEUQ"
+                }
+            ]
+        },
+        {
+            "_id": "f3b4aeb5-3ca7-4790-89c0-5cc64e36c7d8",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "delete movie from favourites",
+            "url": "http://localhost:1000/users/6634fede9751ba296302158d/deletefav",
+            "method": "PATCH",
+            "sortNum": 100000,
+            "created": "2024-05-03T16:52:59.129Z",
+            "modified": "2024-05-03T17:34:57.898Z",
+            "headers": [
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMzYzZlYzE5MGNiNWJhNWMxNWYyZWEiLCJuYW1lIjoiSm9zZSBNYW51ZWwiLCJlbWFpbCI6Impvc2VtZXNhbWFyaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0NzU3MTA3LCJleHAiOjE3MTQ3NTg5MDd9.hkAxjma8fVDMJGSL9g8lQuIsOB7WsgWWUADJy_JyEUQ"
+                }
+            ]
+        },
+        {
+            "_id": "49f18882-c30b-44a9-8143-4db5f2cbb526",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "favourites from user",
+            "url": "http://localhost:1000/users/favourites",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2024-05-03T17:43:39.811Z",
+            "modified": "2024-05-03T17:44:30.418Z",
+            "headers": [
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMzYzZlYzE5MGNiNWJhNWMxNWYyZWEiLCJuYW1lIjoiSm9zZSBNYW51ZWwiLCJlbWFpbCI6Impvc2VtZXNhbWFyaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0NzU4MjU5LCJleHAiOjE3MTQ3NjAwNTl9.sKjpgrxm3nauvWUb7cZvvwQsed50i4VWXej92aRY4XQ"
+                }
+            ]
+        },
+        {
+            "_id": "07466682-5c6e-44eb-8959-6bd25c189dbd",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "delete movie",
+            "url": "http://localhost:1000/movies/6633ca9df8c1feba8988db5a/deletemovie",
+            "method": "DELETE",
+            "sortNum": 130000,
+            "created": "2024-05-03T18:11:31.820Z",
+            "modified": "2024-05-03T18:13:01.564Z",
+            "headers": [
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMzYzZlYzE5MGNiNWJhNWMxNWYyZWEiLCJuYW1lIjoiSm9zZSBNYW51ZWwiLCJlbWFpbCI6Impvc2VtZXNhbWFyaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0NzU5OTYxLCJleHAiOjE3MTQ3NjE3NjF9.Bj2fMAi8myf1Ink6ITV90_9-sLUa1qVveZAYoEeDhKY"
+                }
+            ]
+        },
+        {
+            "_id": "ddb179dc-7139-447c-8ab7-a7523d2ce1b3",
+            "colId": "926891b7-ccc1-4cfb-95ca-a12e6cc1066e",
+            "containerId": "",
+            "name": "generate toke refress",
+            "url": "http://localhost:1000/users/tokenrefresh",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-05-03T18:27:32.700Z",
+            "modified": "2024-05-03T18:28:58.135Z",
+            "headers": [
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjMzYzZlYzE5MGNiNWJhNWMxNWYyZWEiLCJuYW1lIjoiSm9zZSBNYW51ZWwiLCJlbWFpbCI6Impvc2VtZXNhbWFyaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE0NzYwODg2LCJleHAiOjE3MTQ3NjI2ODZ9.e41NpU3b-LoEPM3wKZlP-dKQtgKPiYVr_sGoZ9-snXE"
+                }
+            ]
+        }
+    ],
+    "ref": "ckRYjKIXOHoMgbSKzLa1GdbV8v3TwvwmoRKTXWmu23Qm2QapOho0-aMD3zO9zMHUYR2wM1-vVa8uV6IyvkZ5Sg"
+}
